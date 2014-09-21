@@ -76,7 +76,7 @@ mir.track <- AnnotationTrack(range=interest, name="miRBase", group=interest$symb
                              fontcolor.group="black", fontsize=15)
 
 cat("Create bam tracks...\n")
-bam.tracks <- generate.bam.tracks("~/uitei/bwt_seq/", gen, chrm, start, end)
+bam.tracks <- generate.bam.tracks("data/seqs/bams", gen, chrm, start, end) # TODO: parametalized 
 all.tracks <- append(c(ig.track, mir.track), bam.tracks)
 
 cat("Draw all tracks...\n")
