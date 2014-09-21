@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+
+import argparse
+import subprocess
+
+
+class GenomeBrowser(object):
+    def __init__():
+        pass
+
+class Cligb(GenomeBrowser):
+    def __init__(self):
+        GenomeBrowser.__init__(self)
+        
+        
+def parse_args():
+    parser = argparse.ArgumentParser(description='cligb: Command line based genome browser for *-seq data')
+    parser.add_argument('--chr|-c', type=str, dest="end", required=True)
+    parser.add_argument('--start|-s', type=int, dest="start", required=True)
+    parser.add_argument('--end|-e', type=str, dest="chrom", required=True)
+    parser.add_argument('--gb|-g', type=str, dest="gb", required=True)
+    parser.add_argument('--bam|-b', type=str, dest="bam")
+    parser.add_argument('--gff|-g', type=str, dest="gff")
+    parser.add_argument('--out|-o', type=str, dest="out", required=True)
+    return parser.parse_args()
+
+def generate_code(args):
+    return '''
+library("Gviz")
+
+pdf({})
+ideo.track <- IdeogramTrack(genome="{}", chromosome="{}")
+plotTracks(ideo.track, from = {}, to = {}, showBandId = TRUE, bevel=1)
+dev.off()    
+'''.format(args.out, args.gb, args.chrom, args.start, args.end)
+    
+def exec_R(code):
+    cmd = "/usr/bin/R --valila --srave -f {} --args".format(code)
+    subprocess.call(cmd, shell=True)
+    
+if __name__ == '__main__':
+    args = parse_args()
+    code = generate_code(args)
+    
+    
