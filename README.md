@@ -1,8 +1,12 @@
 # `cligb`: Command line based genome browser for *-seq data
 ## Description
+_This is currently under development..._
+
 * Quick and simple way to visualize a genomic region of your interest accoss many sequence samples
 * Query by gene symbol, region[start:end]
 
+
+ 
 ## Usage:
 ```
 $ R --silent --slave --vanilla -f gb2.R --args hsa-mir-455 data/seqs/bams/
