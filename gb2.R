@@ -43,23 +43,23 @@ Cligb <- setRefClass(
             result
         },
 
-        findMirs = function(db = NULL, query = NULL){
-            three <- gsub("mir", "miR", query) %>% paste("-3p", sep="")
-            five <- gsub("mir", "miR", query) %>% paste("-5p", sep="")
-            queries <- queryBySymbol(db = db, query, three, five)
+        setInterests = function(db = NULL, query = NULL){
+            if (!is.null(db) & !is.null(query)) {
+                three <- gsub("mir", "miR", query) %>% paste("-3p", sep = "")
+                five <- gsub("mir", "miR", query) %>% paste("-5p", sep = "")
+                queries <- queryBySymbol(db = db, query, three, five)
+            } else {
+                stop("Error: lack a db and query")
+            }
             
             if (nrow(queries) == 0) {
                 stop(sprintf("Query error: Can not find \"%s\" in db", query))
+            } else {
+                interest <<- queries
+                chromosome <<- as.character(queries$chromosome)
+                start <<- min(queries$start)
+                end <<- max(queries$end)
             }
-            
-            .Set.interest(queries)
-            interest <<- queries
-        },
-
-        .Set.interest = function(q) {
-            chromosome <<- as.character(q$chromosome)
-            start <<- min(q$start)
-            end <<- max(q$end)
         },
 
         createIdeogramTrack = function(...) {
@@ -153,7 +153,7 @@ Cligb <- setRefClass(
 )
 
 
-args <- commandArgs(trailingOnly=TRUE)
+args <- commandArgs(trailingOnly = TRUE)
 if (is.na(args[1])) {
   stop("Error: no queries is found")
 } else if (is.na(args[2])) {
@@ -166,7 +166,7 @@ cligb <- Cligb$new(genome.ver = "hg19")
 
 message("Generate annotation track from external data source")
 mir.db <- cligb$generateDb(file = "extdata/miRBase.Gviz")
-cligb$findMirs(db=mir.db, query)
+cligb$setInterests(db=mir.db, query)
 
 message("Create each tracks...")
 ann.track <- cligb$createAnnotationTrack()
