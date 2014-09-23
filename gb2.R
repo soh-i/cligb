@@ -156,8 +156,11 @@ Cligb <- setRefClass(
 args <- commandArgs(trailingOnly=TRUE)
 if (is.na(args[1])) {
   stop("Error: no queries is found")
+} else if (is.na(args[2])) {
+    stop("Error: no bam directory is found")
 }
 query <- args[1]
+dir <- args[2]
 
 cligb <- Cligb$new(genome.ver = "hg19")
 
@@ -169,11 +172,9 @@ message("Create each tracks...")
 ann.track <- cligb$createAnnotationTrack()
 id.track <- cligb$createIdeogramTrack()
 ax.track <- cligb$createAxisTrack()
-data.track <- cligb$createDataTrack("~/dev/data/bam/")
-    
+data.track <- cligb$createDataTrack(dir)
+
 message("Plotting all tracks...")
 all.track <- append(c(ann.track, id.track, ax.track),  data.track)
 cligb$plot(all.track)
-
-message("Finished")
 
