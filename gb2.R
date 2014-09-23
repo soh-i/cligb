@@ -37,7 +37,8 @@ Cligb <- setRefClass(
             args = list(...)
             result <- data.frame()
             for (i in args){
-                result <- rbind(result, filter(db, symbol == i) %>% select(chromosome, start, end, strand, symbol, transcript))
+                result <- rbind(result, filter(db, symbol == i) %>%
+                                    select(chromosome, start, end, strand, symbol, transcript))
             }
             result
         },
@@ -117,7 +118,7 @@ Cligb <- setRefClass(
             for (file in bam.files){
                 c <- c + 1
                 assign(x = track.name[c], value = DataTrack(range = paste(bam.dir, bam.files[c], sep = ""),
-                                              name = track.name,
+                                              name = file,
                                               genome = genome.ver,
                                               chromosome = chromosome,
                                               start = start,
@@ -141,7 +142,12 @@ Cligb <- setRefClass(
         },
         
         plot = function(...) {
-            plotTracks(..., from = start-10, to = end+10)
+            pdf("demo.pdf")
+            plotTracks(...,
+                       from = start-10,
+                       to = end+10,
+                       transformation = function(x){return(log10(x+1))} )
+            dev.off()
         }
     )
 )
@@ -154,15 +160,20 @@ if (is.na(args[1])) {
 query <- args[1]
 
 cligb <- Cligb$new(genome.ver = "hg19")
-mir.db <- cligb$generateDb(file = "~/Dropbox/Desktop.osx/ADAR_paper/data/miRBase.Gviz")
+
+message("Generate annotation track from external data source")
+mir.db <- cligb$generateDb(file = "extdata/miRBase.Gviz")
 cligb$findMirs(db=mir.db, query)
 
 message("Create each tracks...")
 ann.track <- cligb$createAnnotationTrack()
-#id.track <- cligb$createIdeogramTrack()
+id.track <- cligb$createIdeogramTrack()
 ax.track <- cligb$createAxisTrack()
 data.track <- cligb$createDataTrack("~/dev/data/bam/")
     
 message("Plotting all tracks...")
-all <- append(c(ann.track, ax.track),  data.track)
-cligb$plot(all)
+all.track <- append(c(ann.track, id.track, ax.track),  data.track)
+cligb$plot(all.track)
+
+message("Finished")
+
