@@ -6,10 +6,16 @@ _This is currently under development..._
 * Query by gene symbol
 
  
-## Usage:
-```
-$ R --vanilla --slave -f gb2.R --args hsa-mir-XXX PATH_TO_BAM_DIR/
-```
+## Demo
+* Downloadiing a small RNA-seq data sequenced by ENCODE project from `http://hgdownload-test.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeCshlShortRnaSeq/releaseLatest/wgEncodeCshlShortRnaSeqGm12878CellShortAln.bam` (53MB).
+* Indexing the small RNA-seq data is following command,
+	* `samtools index wgEncodeCshlShortRnaSeqGm12878CellShortAln.bam`
+	* move it to `PATH_TO_BAM_DIR`
+* Plotting alignmenta data: 
+
+	```
+	$ R --vanilla --slave -f gb2.R --args hsa-mir-99a PATH_TO_BAM_DIR/
+	```
 
 ![](https://dl.dropboxusercontent.com/u/8677629/gb.png)
 
