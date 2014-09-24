@@ -18,14 +18,14 @@ class Cligb(GenomeBrowser):
         parser.add_argument('--symbol', type=str, dest="symbol", required=True)
         return parser.parse_args()
 
-if __name__ == '__main__':
+        
+def run(self):
     cligb = Cligb()
     args = cligb.parse_args()
-    R_code = "gb2.R"
+    R_code = "src/gb2.R"
     subprocess.call("R --vanilla --slave -f {} --args {} {}".format(R_code, args.symbol, args.bam_dir), shell=True)
+
     
-    
-    
-    
-    
+if __name__ == '__main__':
+    run()
     
