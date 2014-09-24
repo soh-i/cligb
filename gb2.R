@@ -159,14 +159,14 @@ if (is.na(args[1])) {
 } else if (is.na(args[2])) {
     stop("Error: no bam directory is found")
 }
-query <- args[1]
+q <- args[1]
 dir <- args[2]
 
 cligb <- Cligb$new(genome.ver = "hg19")
 
 message("Generate annotation track from external data source")
 mir.db <- cligb$generateDb(file = "extdata/miRBase.Gviz")
-cligb$setInterests(db=mir.db, query)
+cligb$setInterests(db=mir.db, query=q)
 
 message("Create each tracks...")
 ann.track <- cligb$createAnnotationTrack()
