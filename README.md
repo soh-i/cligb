@@ -6,6 +6,7 @@ _This is currently under development..._
 * Query by gene symbol
 
 ## Requirements
+* Python 2.7.5+
 * Gviz (Bioconductor package)
  
 ## Demo
