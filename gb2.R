@@ -111,7 +111,7 @@ Cligb <- setRefClass(
         },
 
         createDataTrack = function(bam.dir, ...) {
-            bam.files <- list.files(bam.dir, "*sorted.bam$")
+            bam.files <- list.files(bam.dir, "*.bam$")
             
             track.name <- gsub(pattern = ".bam", replacement = "_track", x = bam.files)
             c <- 0
@@ -144,8 +144,8 @@ Cligb <- setRefClass(
         plot = function(...) {
             pdf("demo.pdf")
             plotTracks(...,
-                       from = start-10,
-                       to = end+10,
+                       from = start-20,
+                       to = end+20,
                        transformation = function(x){return(log10(x+1))} )
             dev.off()
         }
@@ -175,6 +175,6 @@ ax.track <- cligb$createAxisTrack()
 data.track <- cligb$createDataTrack(dir)
 
 message("Plotting all tracks...")
-all.track <- append(c(ann.track, id.track, ax.track),  data.track)
+all.track <- append(c(id.track, ax.track, ann.track),  data.track)
 cligb$plot(all.track)
 
