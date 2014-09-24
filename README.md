@@ -21,6 +21,7 @@ _This is currently under development..._
 * Plotting alignment data: 
 
 	```
+    $ cligb --help # Show help message
 	$ cligb --bam_dir PATH_TO_BAM_DIR/ --symbol hsa-mir-22
 	```
 
