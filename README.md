@@ -18,7 +18,7 @@ _This is currently under development..._
 * Indexing the seq. data is the following command,
 	* `samtools index bam file`
 	* move it to `PATH_TO_BAM_DIR`
-* Plotting alignment data: 
+* Plotting alignment data in human miR-22: 
 
 	```
     $ cligb --help # Show help message
@@ -26,6 +26,10 @@ _This is currently under development..._
 	```
 
 ![](https://dl.dropboxusercontent.com/u/8677629/gb-demo.png)
+
+* Example: hsa-let-7d (Human let-7d)
+![](https://dl.dropboxusercontent.com/u/8677629/let7.png)
+
 
 ## TODO:
 - [x] Packaging for Python command line interface
