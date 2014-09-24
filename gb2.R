@@ -142,10 +142,10 @@ Cligb <- setRefClass(
         },
         
         plot = function(...) {
-            pdf("demo.pdf")
+            pdf("demo.pdf", height=12, width=10)
             plotTracks(...,
-                       from = start-20,
-                       to = end+20,
+                       from = start - 10,
+                       to = end + 10,
                        transformation = function(x){return(log10(x+1))} )
             dev.off()
         }
