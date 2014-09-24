@@ -19,7 +19,7 @@ class Cligb(GenomeBrowser):
         return parser.parse_args()
 
         
-def run(self):
+def run():
     cligb = Cligb()
     args = cligb.parse_args()
     R_code = "src/gb2.R"
